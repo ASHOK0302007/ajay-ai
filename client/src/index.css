@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+  h1, h2, h3, .font-orbitron {
+    font-family: 'Orbitron', sans-serif;
+  }
+  code, pre, .font-mono {
+    font-family: 'Fira Code', monospace;
+  }
+}
+
+/* Glassmorphism custom styling */
+.glass-panel {
+  background: rgba(13, 20, 36, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(56, 189, 248, 0.15);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.glass-panel-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-panel-hover:hover {
+  background: rgba(20, 30, 52, 0.8);
+  border-color: rgba(56, 189, 248, 0.4);
+  box-shadow: 0 0 25px rgba(0, 243, 255, 0.2);
+}
+
+.neon-glow-cyan {
+  box-shadow: 0 0 20px rgba(0, 243, 255, 0.4);
+}
+
+.neon-glow-purple {
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+}
+
+.neon-text-cyan {
+  text-shadow: 0 0 10px rgba(0, 243, 255, 0.6);
+}
+
+/* Custom Cyber Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(7, 9, 14, 0.8);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(56, 189, 248, 0.25);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 243, 255, 0.6);
+}

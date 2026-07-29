@@ -1,0 +1,77 @@
+// Prisma Schema for Production AJAY AI Assistant Backend
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id           String        @id @default(uuid())
+  username     String
+  email        String?       @unique
+  preferences  String        @default("{}")
+  createdAt    DateTime      @default(now())
+  conversations Conversation[]
+  tasks        Task[]
+  expenses     Expense[]
+  events       CalendarEvent[]
+}
+
+model Conversation {
+  id        String    @id @default(uuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     String    @default("New Conversation")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  messages  Message[]
+}
+
+model Message {
+  id             String       @id @default(uuid())
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  sender         String       // "user" | "assistant"
+  text           String
+  emotion        String       @default("happy")
+  metadata       String       @default("{}")
+  createdAt      DateTime     @default(now())
+}
+
+model Task {
+  id        String    @id @default(uuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     String
+  priority  String    @default("medium") // "high", "medium", "low"
+  status    String    @default("pending") // "completed", "pending"
+  dueDate   DateTime?
+  createdAt DateTime  @default(now())
+}
+
+model Expense {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     String
+  amount    Float
+  category  String   @default("General")
+  date      DateTime @default(now())
+  createdAt DateTime @default(now())
+}
+
+model CalendarEvent {
+  id          String   @id @default(uuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title       String
+  description String?
+  startTime   DateTime
+  endTime     DateTime
+  location    String?
+  createdAt   DateTime @default(now())
+}
